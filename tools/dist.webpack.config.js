@@ -6,8 +6,8 @@ module.exports = (distRoot, optimize) => ({
   entry: './src/components/index.tsx',
   output: {
     path: distRoot,
-    filename: optimize ? 'e-commerce-cmts.min.js' : 'e-commerce-cmts.js',
-    library: 'e-commerce-cmts',
+    filename: optimize ? 'michibox-components.min.js' : 'michibox-components.js',
+    library: 'michibox-components',
     libraryTarget: 'umd',
   },
   module: {
