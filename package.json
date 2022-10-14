@@ -23,11 +23,6 @@
     "dist",
     "es"
   ],
-  "peerDependencies": {
-    "@types/react": ">=16.14.8",
-    "react": ">=16.14.0",
-    "react-dom": ">=16.14.0"
-  },
   "dependencies": {
     "@babel/runtime": "^7.14.0",
     "@fortawesome/fontawesome-svg-core": "^1.3.0",
@@ -149,5 +144,15 @@
     "@semantic-release/git",
     "@semantic-release/github",
     "@semantic-release/npm"
-  ]
+  ],
+  "peerDependencies": {
+    "@types/react": ">=16.14.8",
+    "react": ">=16.14.0",
+    "react-dom": ">=16.14.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    }
+  }
 }
