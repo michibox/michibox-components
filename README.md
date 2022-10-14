@@ -14,3 +14,4 @@ git commit -m "fix: fix to building components"
 git commit -m "feat: fix to building components"
 
 
+git commit -m "feat: github actions configurations"
