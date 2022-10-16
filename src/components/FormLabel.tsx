@@ -14,6 +14,7 @@ interface FormLabelBaseProps
     React.HTMLAttributes<HTMLElement> {
   htmlFor?: string;
   visuallyHidden?: boolean;
+  required?:  boolean;
 }
 
 export interface FormLabelOwnProps extends FormLabelBaseProps {
@@ -58,6 +59,8 @@ const propTypes = {
    * read by assistive technologies.
    */
   visuallyHidden: PropTypes.bool,
+
+  required: PropTypes.bool,
 
   /** Set a custom element for this component */
   as: PropTypes.elementType,

@@ -8,6 +8,7 @@ import FormContext from './FormContext';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ErrorMessages } from './ErrorMessages';
+import FormLabel from './FormLabel';
 
 type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
@@ -26,6 +27,8 @@ export interface FormControlProps
     isInvalid?: boolean;
     error?: any;
     touched?: boolean;
+    label?: any;
+    required?: boolean;
 }
 
 const propTypes = {
@@ -147,6 +150,7 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
 
             return (
                 <React.Fragment>
+                    { props?.label && <FormLabel children={ props?.label} required={props?.required}/>}
                     <Component
                         {...props}
                         type={type}
