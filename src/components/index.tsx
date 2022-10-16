@@ -229,3 +229,14 @@ export type {
 
 export { default as Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
+
+export { default as Link } from './Link';
+export type { LinkProps } from './Link';
+
+export { default as Divider } from './Divider';
+export type { DividerProps } from './Divider';
+
+
+export { default as ErrorMessages } from './ErrorMessages';
+export type { ErrorMessagesProps } from './ErrorMessages';
+

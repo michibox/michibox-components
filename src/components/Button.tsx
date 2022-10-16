@@ -29,6 +29,7 @@ export interface ButtonProps
     size?: 'sm' | 'lg';
     icon?: string | object;
     loading?: boolean;
+    fullWidth?: boolean;
     label?: string;
 }
 
@@ -75,6 +76,9 @@ const propTypes = {
 
     /** Manually set the visual state of the button to `:loading` */
     loading: PropTypes.bool,
+
+    fullWidth: PropTypes.bool,
+    
     /**
      * Disables the Button, preventing mouse events,
      * even if the underlying component is an `<a>` element
@@ -99,6 +103,7 @@ const defaultProps = {
     active: false,
     disabled: false,
     loading: false,
+    fullWidth: false,
 };
 
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
@@ -115,6 +120,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 children,
                 active,
                 className,
+                fullWidth,
                 ...props
             },
             ref
@@ -159,7 +165,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                         variant && `${prefix}-${variant}`,
                         size && `${prefix}-${size}`,
                         props.href && props.disabled && 'disabled',
-                        loading && 'disabled'
+                        loading && 'disabled',
+                        fullWidth && 'w-100'
                     )}
                 >
                     {icon && getIcon(icon)} {label ? label : children}
