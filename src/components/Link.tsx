@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 export interface LinkProps {
     href: string;
@@ -6,11 +6,14 @@ export interface LinkProps {
     children: React.ReactNode;
 }
 
-export const Link: FC<LinkProps> = ({ href, children, ...props }) => {
+export const Link: React.FC<LinkProps> = React.forwardRef<
+    HTMLAnchorElement,
+    LinkProps
+>(({ href, children, ...props }, ref) => {
     return (
-        <a href={href} target={props?.target} {...props}>
+        <a href={href} target={props?.target} {...props} ref={ref}>
             {children}
         </a>
     );
-};
+});
 export default Link;
