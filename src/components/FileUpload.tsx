@@ -30,7 +30,7 @@ const FileUpload: React.FC<FileUploadProps> = React.forwardRef<
             maxFile = '5',
             ...props
         },
-        ref
+        _ref
     ) => {
         const fileInput = useRef<HTMLInputElement | null>(null);
         let [filename, setFileName] = useState('Subir archivo');
