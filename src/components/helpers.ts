@@ -57,3 +57,11 @@ export function getOverlayDirection(placement: string, isRTL?: boolean) {
   }
   return bsDirection;
 }
+
+export type BsPrefixPropsWithChildren<
+  As extends React.ElementType = React.ElementType
+> = React.PropsWithChildren<BsPrefixProps<As>>;
+
+export interface BsCustomPrefixProps {
+  bsCustomPrefix?: string;
+}

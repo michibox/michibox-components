@@ -12,6 +12,10 @@ import FormText from './FormText';
 import Switch from './Switch';
 import FloatingLabel from './FloatingLabel';
 import { BsPrefixRefForwardingComponent, AsProp } from './helpers';
+import createWithBsPrefix from './createWithBsPrefix';
+import FormFile from './FormFile';
+
+const FormRow = createWithBsPrefix('form-row');
 
 export interface FormProps
   extends React.FormHTMLAttributes<HTMLFormElement>,
@@ -62,6 +66,8 @@ Form.displayName = 'Form';
 Form.propTypes = propTypes as any;
 
 export default Object.assign(Form, {
+  Row: FormRow,
+  File: FormFile,
   Group: FormGroup,
   Control: FormControl,
   Floating: FormFloating,

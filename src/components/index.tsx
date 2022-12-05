@@ -240,3 +240,6 @@ export type { DividerProps } from './Divider';
 export { default as ErrorMessages } from './ErrorMessages';
 export type { ErrorMessagesProps } from './ErrorMessages';
 
+
+export { default as FileUpload } from './FileUpload';
+export type { FileUploadProps } from './FileUpload';
