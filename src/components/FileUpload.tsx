@@ -4,7 +4,7 @@ import Form from './Form';
 
 export interface FileUploadProps {
     accept?: string;
-    feedback: string;
+    feedback?: string;
     showButton?: boolean;
     placeHolder: string;
     onFileSelectSuccess: any;
