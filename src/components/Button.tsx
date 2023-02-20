@@ -33,6 +33,7 @@ export interface ButtonProps
     label?: string;
     iconRight?: boolean;
     animateIcon?: boolean;
+    animateInfiniteIcon?: boolean;
     animateIconClass?: any;
 }
 
@@ -69,6 +70,7 @@ const propTypes = {
     size: PropTypes.string,
 
     animateIcon: PropTypes.bool,
+    animateInfiniteIcon: PropTypes.bool,
     animateIconClass: PropTypes.any,
 
     /**
@@ -114,6 +116,7 @@ const defaultProps = {
     fullWidth: false,
     iconRight: false,
     animateIcon: false,
+    animateInfiniteIcon: false,
     animateIconClass: false,
 };
 
@@ -135,6 +138,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 iconRight,
                 animateIcon,
                 animateIconClass,
+                animateInfiniteIcon,
                 ...props
             },
             ref
@@ -165,7 +169,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                         'animate__animated animate__headShake animate__delay-2s animate__slow',
                     animateIcon &&
                         animateIconClass &&
-                        `animate__animated ${animateIconClass}`
+                        `animate__animated ${animateIconClass}`,
+                        animateInfiniteIcon && 'animate__infinite'
                 );
 
                 if (animateIcon) {
