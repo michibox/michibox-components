@@ -170,14 +170,18 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
 
                 if (animateIcon) {
                     return (
-                        <div className={classAnimatedName} style={{
-                            display: 'inline',
-                            marginLeft: '5px'
-                        }}>
-                            <FontAwesomeIcon
-                                icon={valueIcon}
-                                className={classNameSpin}
-                            />
+                        <div
+                            style={{
+                                display: 'inline',
+                                marginLeft: '5px',
+                            }}
+                        >
+                            <div className={classAnimatedName}>
+                                <FontAwesomeIcon
+                                    icon={valueIcon}
+                                    className={classNameSpin}
+                                />
+                            </div>
                         </div>
                     );
                 }
