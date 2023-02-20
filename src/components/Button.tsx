@@ -170,7 +170,10 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
 
                 if (animateIcon) {
                     return (
-                        <div className={classAnimatedName}>
+                        <div className={classAnimatedName} style={{
+                            display: 'inline',
+                            marginLeft: '5px'
+                        }}>
                             <FontAwesomeIcon
                                 icon={valueIcon}
                                 className={classNameSpin}
