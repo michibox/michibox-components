@@ -32,6 +32,8 @@ export interface ButtonProps
     fullWidth?: boolean;
     label?: string;
     iconRight?: boolean;
+    animateIcon?: boolean;
+    animateIconClass?: any;
 }
 
 export type CommonButtonProps = 'href' | 'size' | 'variant' | 'disabled';
@@ -65,6 +67,10 @@ const propTypes = {
      * @type ('sm'|'lg')
      */
     size: PropTypes.string,
+
+
+    animateIcon: PropTypes.bool,
+    animateIconClass: PropTypes.any,
 
     /**
      * Specifies class icon.
@@ -108,6 +114,8 @@ const defaultProps = {
     loading: false,
     fullWidth: false,
     iconRight: false,
+    animateIcon: false,
+    animateIconClass: false
 };
 
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
@@ -126,6 +134,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 className,
                 fullWidth,
                 iconRight,
+                animateIcon,
+                animateIconClass,
                 ...props
             },
             ref
@@ -148,7 +158,11 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     return <i className={valueIcon}></i>;
                 }
 
-                const classNameSpin = classNames(loading && 'fa-spin');
+                const classNameSpin = classNames(
+                    loading && 'fa-spin',
+                    (animateIcon && !animateIconClass) && 'animate__animated animate__shakeX animate__delay-2s',
+                    (animateIcon && animateIconClass) && `animate__animated ${animateIconClass}`,
+                );
 
                 return (
                     <FontAwesomeIcon
