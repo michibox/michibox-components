@@ -162,7 +162,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 const classAnimatedName = classNames(
                     animateIcon &&
                         !animateIconClass &&
-                        'animate__animated animate__shakeX animate__delay-2s',
+                        'animate__animated animate__headShake animate__delay-2s animate__slow',
                     animateIcon &&
                         animateIconClass &&
                         `animate__animated ${animateIconClass}`
