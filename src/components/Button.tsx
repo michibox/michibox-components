@@ -68,7 +68,6 @@ const propTypes = {
      */
     size: PropTypes.string,
 
-
     animateIcon: PropTypes.bool,
     animateIconClass: PropTypes.any,
 
@@ -115,7 +114,7 @@ const defaultProps = {
     fullWidth: false,
     iconRight: false,
     animateIcon: false,
-    animateIconClass: false
+    animateIconClass: false,
 };
 
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
@@ -158,12 +157,27 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     return <i className={valueIcon}></i>;
                 }
 
-                const classNameSpin = classNames(
-                    loading && 'fa-spin',
-                    (animateIcon && !animateIconClass) && 'animate__animated animate__shakeX animate__delay-2s',
-                    (animateIcon && animateIconClass) && `animate__animated ${animateIconClass}`,
+                const classNameSpin = classNames(loading && 'fa-spin');
+
+                const classAnimatedName = classNames(
+                    animateIcon &&
+                        !animateIconClass &&
+                        'animate__animated animate__shakeX animate__delay-2s',
+                    animateIcon &&
+                        animateIconClass &&
+                        `animate__animated ${animateIconClass}`
                 );
 
+                if (animateIcon) {
+                    return (
+                        <div className={classAnimatedName}>
+                            <FontAwesomeIcon
+                                icon={valueIcon}
+                                className={classNameSpin}
+                            />
+                        </div>
+                    );
+                }
                 return (
                     <FontAwesomeIcon
                         icon={valueIcon}
