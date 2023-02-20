@@ -172,7 +172,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     return (
                         <div
                             style={{
-                                display: 'inline',
+                                display: 'inline-block',
                                 marginLeft: '5px',
                             }}
                         >
