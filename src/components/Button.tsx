@@ -31,6 +31,7 @@ export interface ButtonProps
     loading?: boolean;
     fullWidth?: boolean;
     label?: string;
+    iconRight?: boolean;
 }
 
 export type CommonButtonProps = 'href' | 'size' | 'variant' | 'disabled';
@@ -78,12 +79,14 @@ const propTypes = {
     loading: PropTypes.bool,
 
     fullWidth: PropTypes.bool,
-    
+
     /**
      * Disables the Button, preventing mouse events,
      * even if the underlying component is an `<a>` element
      */
     disabled: PropTypes.bool,
+
+    iconRight: PropTypes.bool,
 
     /** Providing a `href` will render an `<a>` element, _styled_ as a button. */
     href: PropTypes.string,
@@ -104,6 +107,7 @@ const defaultProps = {
     disabled: false,
     loading: false,
     fullWidth: false,
+    iconRight: false,
 };
 
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
@@ -121,6 +125,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 active,
                 className,
                 fullWidth,
+                iconRight,
                 ...props
             },
             ref
@@ -169,7 +174,16 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                         fullWidth && 'w-100'
                     )}
                 >
-                    {icon && getIcon(icon)} {label ? label : children}
+                    {iconRight && (
+                        <React.Fragment>
+                            {label ? label : children} {icon && getIcon(icon)}
+                        </React.Fragment>
+                    )}
+                    {!iconRight && (
+                        <React.Fragment>
+                            {icon && getIcon(icon)} {label ? label : children}
+                        </React.Fragment>
+                    )}
                 </Component>
             );
         }
