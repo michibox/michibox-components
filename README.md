@@ -9,3 +9,8 @@ Este paquete esta diseñado con React Componentes + Storybook + NPM Publish.
 
 yarn i michibox-components
 
+
+
+git tag -a v1.8.0 -m "version 1.8.0"
+
+git push origin v1.8.0
