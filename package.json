@@ -161,7 +161,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.49.7",
     "sass-loader": "^12.4.0",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^19.0.3",
     "simulant": "^0.2.2",
     "sinon": "^14.0.1",
     "sinon-chai": "^3.7.0",
