@@ -45,7 +45,9 @@ export interface SelectProps {
     value?: any;
     onInputChange?: (values: any) => void;
     loadingMessage?: () => void;
+    noOptionsMessage?: () => void;
     classNamePrefix?: string;
+    placeholder?: string;
     styles?: any;
 }
 
@@ -61,7 +63,7 @@ const customStyles = {
             ? '#BC955C'
             : state.isFocused
             ? 'rgba(188, 149, 92, 0.25)'
-            : 'white', //styles.backgroundColor,
+            : 'white', 
         cursor: 'pointer',
     }),
     control: (styles: any, state: any) => ({
@@ -93,6 +95,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             onInputChange,
             touched = true,
             loadingMessage = () => 'Buscando...',
+            noOptionsMessage = () => 'Sin datos',
+            placeholder = "Seleccione",
             classNamePrefix = 'mySelect',
             styles = customStyles,
             ...props
@@ -153,8 +157,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
                     menuPortalTarget={document.body}
                     // @ts-ignore
                     ref={getRef}
-                    placeholder="Seleccione"
-                    noOptionsMessage={() => 'Sin datos'}
+                    placeholder={placeholder}
+                    noOptionsMessage={noOptionsMessage}
                     isSearchable={isSearchable}
                     value={props.options.find(
                         (obj: any) => obj.value == props.defaultValue
