@@ -181,6 +181,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
         return (
             <Fragment>
                 <OriginSelect
+                    {...props}
                     classNamePrefix="mySelect"
                     menuPortalTarget={document.body}
                     // @ts-ignore
