@@ -69,6 +69,7 @@ const propTypes = {
 const defaultProps = {
   column: false,
   visuallyHidden: false,
+  required: false
 };
 
 const FormLabel: BsPrefixRefForwardingComponent<'label', FormLabelProps> =
@@ -82,6 +83,7 @@ const FormLabel: BsPrefixRefForwardingComponent<'label', FormLabelProps> =
         visuallyHidden,
         className,
         htmlFor,
+        required,
         ...props
       },
       ref,
@@ -99,6 +101,7 @@ const FormLabel: BsPrefixRefForwardingComponent<'label', FormLabelProps> =
         bsPrefix,
         visuallyHidden && 'visually-hidden',
         column && columnClass,
+        required && 'required'
       );
 
       warning(
