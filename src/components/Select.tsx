@@ -45,7 +45,41 @@ export interface SelectProps {
     value?: any;
     onInputChange?: (values: any) => void;
     loadingMessage?: () => void;
+    classNamePrefix?: string;
+    styles?: any;
 }
+
+const customStyles = {
+    container: (base: any) => ({
+        ...base,
+        flex: 1,
+    }),
+    option: (styles: any, state: any) => ({
+        ...styles,
+        color: state.isSelected ? 'white' : 'black',
+        backgroundColor: state.isSelected
+            ? '#BC955C'
+            : state.isFocused
+            ? 'rgba(188, 149, 92, 0.25)'
+            : 'white', //styles.backgroundColor,
+        cursor: 'pointer',
+    }),
+    control: (styles: any, state: any) => ({
+        ...styles,
+        cursor: 'pointer',
+        border: '1px solid #ced4da',
+        borderRadius: '4px',
+        boxShadow: state.isFocused
+            ? '0 0 0 0.2rem rgba(188, 149, 92, 0.25)'
+            : 0,
+        borderColor: state.isFocused ? '#BC955C' : '#BC955C',
+        '&:hover': {
+            borderColor: '#BC955C',
+        },
+        '&:focus': {},
+    }),
+    menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
+};
 
 const Select = React.forwardRef<HTMLInputElement, SelectProps>(
     (
@@ -59,6 +93,8 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             onInputChange,
             touched = true,
             loadingMessage = () => 'Buscando...',
+            classNamePrefix = 'mySelect',
+            styles = customStyles,
             ...props
         }: SelectProps,
         ref
@@ -88,75 +124,6 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             }
         };
 
-        const customLoginStyles = {
-            container: (base: any) => ({
-                ...base,
-                flex: 1,
-            }),
-
-            singleValue: (styles: any) => ({
-                ...styles,
-                color: 'white',
-            }),
-
-            option: (styles: any, state: any) => ({
-                ...styles,
-                color: state.isSelected ? '#000000' : 'black',
-                backgroundColor: state.isSelected
-                    ? '#ffffff'
-                    : state.isFocused
-                    ? 'rgba(188, 149, 92, 0.25)'
-                    : 'white', // styles.backgroundColor,
-                cursor: 'pointer',
-            }),
-            control: (styles: any, state: any) => ({
-                ...styles,
-                cursor: 'pointer',
-                backgroundColor: backgroundColor || '#205044',
-                border: '2px solid #BC955C',
-                borderRadius: '4px',
-                boxShadow: state.isFocused
-                    ? '0 0 0 0.2rem rgba(188, 149, 92, 0.25)'
-                    : 0, ///color contorno del control
-                //borderColor: state.isFocused ? "#BC955C" : "#BC955C",
-                '&:hover': {
-                    borderColor: '#BC955C',
-                },
-                '&:focus': {},
-            }),
-        };
-        const customStyles = {
-            container: (base: any) => ({
-                ...base,
-                flex: 1,
-            }),
-            option: (styles: any, state: any) => ({
-                ...styles,
-                color: state.isSelected ? 'white' : 'black',
-                backgroundColor: state.isSelected
-                    ? '#BC955C'
-                    : state.isFocused
-                    ? 'rgba(188, 149, 92, 0.25)'
-                    : 'white', //styles.backgroundColor,
-                cursor: 'pointer',
-            }),
-            control: (styles: any, state: any) => ({
-                ...styles,
-                cursor: 'pointer',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                boxShadow: state.isFocused
-                    ? '0 0 0 0.2rem rgba(188, 149, 92, 0.25)'
-                    : 0,
-                borderColor: state.isFocused ? '#BC955C' : '#BC955C',
-                '&:hover': {
-                    borderColor: '#BC955C',
-                },
-                '&:focus': {},
-            }),
-            menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
-        };
-
         const getRef = (refAlias: any) => {
             if (!ref) {
                 return;
@@ -182,7 +149,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
             <Fragment>
                 <OriginSelect
                     {...props}
-                    classNamePrefix="mySelect"
+                    classNamePrefix={classNamePrefix}
                     menuPortalTarget={document.body}
                     // @ts-ignore
                     ref={getRef}
@@ -199,7 +166,7 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
                     onChange={handleChange}
                     onBlur={handleBlur}
                     options={props.options}
-                    styles={isLogin ? customLoginStyles : customStyles}
+                    styles={styles}
                     isDisabled={isDisabled}
                     isClearable={isClearable}
                     isLoading={isLoading}
