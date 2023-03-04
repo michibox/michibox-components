@@ -247,3 +247,7 @@ export type { FileUploadProps } from './FileUpload';
 
 export { default as Reactions } from './Reactions';
 export type { ReactionsProps } from './Reactions';
+
+
+export { default as Select } from './Select';
+export type { SelectProps } from './Select';
