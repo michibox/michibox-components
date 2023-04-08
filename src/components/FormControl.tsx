@@ -9,6 +9,8 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ErrorMessages } from './ErrorMessages';
 import FormLabel from './FormLabel';
+import { Fragment } from 'react';
+import FloatingLabel from './FloatingLabel';
 
 type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
@@ -29,6 +31,9 @@ export interface FormControlProps
     touched?: boolean;
     label?: any;
     required?: boolean;
+
+    classNameLabel?: string | undefined;
+    isFloatingLabel?: boolean;
 }
 
 const propTypes = {
@@ -77,7 +82,6 @@ const propTypes = {
     /** Make the control disabled */
     disabled: PropTypes.bool,
 
-
     /**
      * The `value` attribute of underlying input
      *
@@ -107,6 +111,8 @@ const propTypes = {
 
     /** Add "invalid" validation styles to the control and accompanying label */
     isInvalid: PropTypes.bool,
+
+    isFloatingLabel: PropTypes.bool,
 };
 
 const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
@@ -119,10 +125,12 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
                 htmlSize,
                 id,
                 className,
+                classNameLabel = '',
                 isValid = false,
                 isInvalid = false,
                 plaintext,
                 readOnly,
+                isFloatingLabel = false,
                 // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
                 as: Component = 'input',
                 ...props
@@ -148,30 +156,50 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
                 '`controlId` is ignored on `<FormControl>` when `id` is specified.'
             );
 
+            const FormControlCustom = () => {
+                return (
+                    <Fragment>
+                        {props?.label && (
+                            <FormLabel
+                                children={props?.label}
+                                required={props?.required}
+                            />
+                        )}
+                        <Component
+                            {...props}
+                            type={type}
+                            size={htmlSize}
+                            ref={ref}
+                            readOnly={readOnly}
+                            id={id || controlId}
+                            className={classNames(
+                                className,
+                                classes,
+                                isValid && `is-valid`,
+                                isInvalid && `is-invalid`,
+                                type === 'color' && `${bsPrefix}-color`
+                            )}
+                        />
+                        {props?.error && (
+                            <ErrorMessages
+                                error={props?.error}
+                                touched={props?.touched}
+                            />
+                        )}
+                    </Fragment>
+                );
+            };
             return (
                 <React.Fragment>
-                    { props?.label && <FormLabel children={ props?.label} required={props?.required}/>}
-                    <Component
-                        {...props}
-                        type={type}
-                        size={htmlSize}
-                        ref={ref}
-                        readOnly={readOnly}
-                        id={id || controlId}
-                        className={classNames(
-                            className,
-                            classes,
-                            isValid && `is-valid`,
-                            isInvalid && `is-invalid`,
-                            type === 'color' && `${bsPrefix}-color`
-                        )}
-                    />
-                    {props?.error && (
-                        <ErrorMessages
-                            error={props?.error}
-                            touched={props?.touched}
-                        />
+                    {isFloatingLabel && (
+                        <FloatingLabel
+                            label={props?.label}
+                            className={classNameLabel}
+                        >
+                            {FormControlCustom()}
+                        </FloatingLabel>
                     )}
+                    {!isFloatingLabel && FormControlCustom()}
                 </React.Fragment>
             );
         }
