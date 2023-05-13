@@ -177,6 +177,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
       );
 
       const handleSelect = () => {
+        console.log("handleSelect", ref)
         // @ts-ignore
         if(ref?.current){
           // @ts-ignore
