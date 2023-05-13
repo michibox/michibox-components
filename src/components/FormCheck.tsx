@@ -176,6 +176,14 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         />
       );
 
+      const handleSelect = () => {
+        // @ts-ignore
+        if(ref?.current){
+          // @ts-ignore
+          ref?.current?.click()
+        }
+      }
+
       return (
         <FormContext.Provider value={innerFormContext}>
           <div
@@ -187,6 +195,11 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
               reverse && `${bsPrefix}-reverse`,
               type === 'switch' && bsSwitchPrefix,
             )}
+            {...{
+              ...(!children && {
+                onClick: handleSelect,
+              }),
+          }}
           >
             {children || (
               <>

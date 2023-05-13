@@ -113,6 +113,8 @@ const propTypes = {
     isInvalid: PropTypes.bool,
 
     isFloatingLabel: PropTypes.bool,
+
+    error:  PropTypes.any,
 };
 
 const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
