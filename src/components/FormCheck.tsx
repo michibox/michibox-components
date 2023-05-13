@@ -149,6 +149,10 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
       },
       ref,
     ) => {
+
+      const componentRef = ref || React.useRef(null);
+
+
       bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
       bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
 
@@ -168,7 +172,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         <FormCheckInput
           {...props}
           type={type === 'switch' ? 'checkbox' : type}
-          ref={ref}
+          ref={componentRef}
           isValid={isValid}
           isInvalid={isInvalid}
           disabled={disabled}
@@ -177,11 +181,10 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
       );
 
       const handleSelect = () => {
-        console.log("handleSelect", ref)
         // @ts-ignore
-        if(ref?.current){
+        if(componentRef?.current){
           // @ts-ignore
-          ref?.current?.click()
+          componentRef?.current?.click?.()
         }
       }
 
