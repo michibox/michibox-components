@@ -128,7 +128,6 @@ const blobToBase64 = function (blob: any, callback: any) {
     reader.readAsDataURL(blob);
 };
 
-
 const ComponentUpload = React.forwardRef((props: any, ref: any) => {
     const {
         appUUID,
@@ -473,7 +472,6 @@ export interface ComponentUploadProps {
     uuids: string[];
     readOnly: boolean;
     maxMb: number;
-    key: any;
     urlService: string;
     urlOCRService?: string;
 }
@@ -493,7 +491,6 @@ const FileUploadS3Multipart = React.forwardRef((propsMain: any, ref: any) => {
         readOnly = false,
         preview = false,
         maxMb = 5,
-        key = 'fileS3',
         urlService = '',
         urlOCRService = null,
         remove = false,
@@ -517,17 +514,18 @@ const FileUploadS3Multipart = React.forwardRef((propsMain: any, ref: any) => {
         maxMb,
         urlService,
         urlOCRService,
-        key,
     };
 
-    const componentUploadRef = useRef(key);
+    const componentUploadRef = useRef(null);
 
     useImperativeHandle(ref, () => ({
         click() {
-            componentUploadRef.current.click();
+            // @ts-ignore
+            componentUploadRef?.current?.click?.();
         },
         clear() {
-            componentUploadRef.current.clear();
+            // @ts-ignore
+            componentUploadRef?.current?.clear?.();
         },
     }));
 
