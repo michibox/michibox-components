@@ -251,3 +251,6 @@ export type { ReactionsProps } from './Reactions';
 
 export { default as Select } from './Select';
 export type { SelectProps } from './Select';
+
+export { default as FileUploadS3Multipart } from './FileUploadS3Multipart';
+export type { FileUploadS3MultipartProps } from './FileUploadS3Multipart';

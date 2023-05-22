@@ -44,8 +44,8 @@ export interface SelectProps {
 
     value?: any;
     onInputChange?: (values: any) => void;
-    loadingMessage?: () => void;
-    noOptionsMessage?: () => void;
+    loadingMessage?: () => string;
+    noOptionsMessage?: () => string;
     classNamePrefix?: string;
     placeholder?: string;
     styles?: any;
