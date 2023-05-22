@@ -440,8 +440,8 @@ const ComponentUpload = React.forwardRef((props: any, ref: any) => {
 });
 
 export interface FileUploadS3MultipartProps {
-    appUUID: number;
-    moduleUUID: number;
+    appUUID: string;
+    moduleUUID: string;
     extensions?: string[];
     accept?: string;
     uploadedCallback: (values: any) => void;
@@ -461,8 +461,8 @@ export interface FileUploadS3MultipartProps {
 }
 
 export interface ComponentUploadProps {
-    appUUID: number;
-    moduleUUID: number;
+    appUUID: string;
+    moduleUUID: string;
     extensions: string[];
     accept: string;
     uploadedCallback: (values: any) => void;
