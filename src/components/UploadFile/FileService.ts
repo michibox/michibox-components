@@ -118,7 +118,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -144,7 +144,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -180,7 +180,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -203,7 +203,7 @@ export default {
                     responseType: 'blob',
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 return Promise.resolve(response);
             }
             return Promise.reject(response);
@@ -223,7 +223,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -246,7 +246,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -312,7 +312,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 201) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -344,7 +344,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
@@ -369,7 +369,7 @@ export default {
                     },
                 }
             );
-            if (response?.status === 200) {
+            if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);
             }
