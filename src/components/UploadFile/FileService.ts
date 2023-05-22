@@ -92,6 +92,8 @@ const httpTransfer = axios.create({
     // baseURL: `${API_URL_TRANSFER_FILE}/api`,
     withCredentials: true,
     timeout: 0,
+    xsrfCookieName: "XSRF-TOKEN",
+    xsrfHeaderName: "X-XSRF-TOKEN"
 });
 httpTransfer.defaults.headers.post['Content-Type'] = 'application/json';
 httpTransfer.defaults.headers.common = headersDefaultTransfer();
