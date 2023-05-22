@@ -14,14 +14,15 @@ function concatenate(arrays: any) {
     return result;
 }
 
-function getContentLength(url, token, params) {
+function getContentLength(url,  params) { // token,
     return new Promise((resolve, reject) => {
         const parameters = `url=${encodeURIComponent(params.url)}`;
         const xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
         xhr.open('HEAD', `${url}?${parameters}`);
 
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('Authorization', token);
+      //  xhr.setRequestHeader('Authorization', token);
 
         xhr.send();
         // eslint-disable-next-line func-names
@@ -41,16 +42,17 @@ function getContentLength(url, token, params) {
     });
 }
 
-function getBinaryContent(url, start, end, i, token, params) {
+function getBinaryContent(url, start, end, i, params) {// , token
     return new Promise((resolve, reject) => {
         try {
             const parameters = `url=${encodeURIComponent(params.url)}`;
             const xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
             xhr.open('GET', `${url}?${parameters}`, true);
 
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Authorization', token);
+           // xhr.setRequestHeader('Authorization', token);
 
             xhr.setRequestHeader('Range', `bytes=${start}-${end}`); // Set range request information
             xhr.responseType = 'arraybuffer'; // Set the returned type to arraybuffer
@@ -95,12 +97,14 @@ export async function downloadMultiThreadDownload({
     url,
     chunkSize,
     poolLimit = 1,
-    token,
+   // token,
     params,
 }) {
     // @ts-ignore
     const { contentLength, contentDisposition, contentType } =
-        await getContentLength(url, token, params);
+        await getContentLength(url, 
+            // token, 
+            params);
 
     const chunks =
         typeof chunkSize === 'number'
@@ -115,7 +119,7 @@ export async function downloadMultiThreadDownload({
             const end =
                 i + 1 === chunks ? contentLength - 1 : (i + 1) * chunkSize - 1;
 
-            return getBinaryContent(url, start, end, i, token, params);
+            return getBinaryContent(url, start, end, i, params); // token, 
         }
     );
      // @ts-ignore

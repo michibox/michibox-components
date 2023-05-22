@@ -131,8 +131,8 @@ const blobToBase64 = function (blob: any, callback: any) {
 
 const ComponentUpload = React.forwardRef((props: any, ref: any) => {
     const {
-        applicativeId,
-        moduleId,
+        appUUID,
+        moduleUUID,
         extensions,
         accept,
         uploadedCallback,
@@ -255,8 +255,8 @@ const ComponentUpload = React.forwardRef((props: any, ref: any) => {
 
             const uploadFile = new UploadFile({
                 urlService,
-                applicativeId,
-                moduleId,
+                appUUID,
+                moduleUUID,
             });
             uploadFile.id = uuid();
 
@@ -440,8 +440,8 @@ const ComponentUpload = React.forwardRef((props: any, ref: any) => {
 });
 
 export interface FileUploadS3MultipartProps {
-    applicativeId: number;
-    moduleId: number;
+    appUUID: number;
+    moduleUUID: number;
     extensions?: string[];
     accept?: string;
     uploadedCallback: (values: any) => void;
@@ -461,8 +461,8 @@ export interface FileUploadS3MultipartProps {
 }
 
 export interface ComponentUploadProps {
-    applicativeId: number;
-    moduleId: number;
+    appUUID: number;
+    moduleUUID: number;
     extensions: string[];
     accept: string;
     uploadedCallback: (values: any) => void;
@@ -480,8 +480,8 @@ export interface ComponentUploadProps {
 
 const FileUploadS3Multipart = React.forwardRef((propsMain: any, ref: any) => {
     const {
-        applicativeId,
-        moduleId,
+        appUUID,
+        moduleUUID,
         extensions = ['.pdf', '.jpg', '.jpeg', '.png', '.docx', '.xlsx'],
         accept = 'image/jpeg,image/gif,image/png,application/pdf',
         uploadedCallback,
@@ -502,8 +502,8 @@ const FileUploadS3Multipart = React.forwardRef((propsMain: any, ref: any) => {
 
     const props = {
         ...propsMain,
-        applicativeId,
-        moduleId,
+        appUUID,
+        moduleUUID,
         extensions,
         accept,
         uploadedCallback,

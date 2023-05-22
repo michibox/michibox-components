@@ -39,8 +39,8 @@ export class UploadFile extends Evented {
     mozSlice: any;
     webkitSlice: any;
 
-    applicativeId: any;
-    moduleId: any;
+    appUUID: any;
+    moduleUUID: any;
     constructor(options?: any, legacyOptions?: any) {
         super();
 
@@ -51,8 +51,8 @@ export class UploadFile extends Evented {
         bindAll(['_update', '_resume', '_abort'], this);
         this.id = null;
         this.urlService = options.urlService;
-        this.applicativeId = options.applicativeId;
-        this.moduleId = options.moduleId;
+        this.appUUID = options.appUUID;
+        this.moduleUUID = options.moduleUUID;
 
         this.id = null;
         this.uploader = null;
@@ -191,8 +191,8 @@ export class UploadFile extends Evented {
             ...uploaderOptions,
             controller: this.controller,
             urlService: this.urlService,
-            applicativeId: this.applicativeId,
-            moduleId: this.moduleId,
+            appUUID: this.appUUID,
+            moduleUUID: this.moduleUUID,
         });
 
         this.uploader

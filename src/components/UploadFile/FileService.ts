@@ -4,9 +4,9 @@ import moment from 'moment';
 import { encrypt, decrypt } from '../helper';
 import { downloadMultiThreadDownload } from './MultithreadDownload';
 
-export const NAME_TOKEN = '_TOKEN';
+// export const NAME_TOKEN = '_TOKEN';
 const IS_ENCRYPT: boolean = false;
-const API_KEY_CRYPTO = 'GHYAA2A92UwVpLcPNdF8UKt3bFBjyWp8';
+const API_KEY_CRYPTO = '';
 
 // Transfer
 
@@ -90,7 +90,7 @@ const responseErrorTransfer = (config: any) => Promise.reject(config);
 
 const httpTransfer = axios.create({
     // baseURL: `${API_URL_TRANSFER_FILE}/api`,
-    withCredentials: false,
+    withCredentials: true,
     timeout: 0,
 });
 httpTransfer.defaults.headers.post['Content-Type'] = 'application/json';
@@ -104,15 +104,15 @@ export default {
         try {
             const resource = `${params?.urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.get(
                 `${resource}/get-upload-file-token`,
                 {
                     params,
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Applicative-Id': params?.applicativeId,
-                        'Module-Id': params?.moduleId,
+                        // Authorization: `Bearer ${token}`,
+                        'App-UUID': params?.appUUID,
+                        'Module-UUID': params?.moduleUUID,
                     },
                 }
             );
@@ -129,16 +129,16 @@ export default {
         try {
             const resource = `${params.urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.post(
                 `${resource}/get-download-file-token`,
                 formData,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        // Authorization: `Bearer ${token}`,
                         'Access-Control-Allow-Origin': '*',
-                        'Applicative-Id': params?.applicativeId,
-                        'Module-Id': params?.moduleId,
+                        'App-UUID': params?.appUUID,
+                        'Module-UUID': params?.moduleUUID,
                     },
                 }
             );
@@ -235,12 +235,12 @@ export default {
         try {
             const resource = `${params?.urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.get(
                 `${resource}/download/generate-download-signed-url/${uuid}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        //   Authorization: `Bearer ${token}`,
                     },
                 }
             );
@@ -262,14 +262,14 @@ export default {
             // eslint-disable-next-line no-undef
 
             // eslint-disable-next-line no-undef
-            const token = sessionStorage.getItem(NAME_TOKEN);
+            // const token = sessionStorage.getItem(NAME_TOKEN);
 
             const { buffers, contentType } = await downloadMultiThreadDownload({
                 url: `${resource}/download/download-file-signed-url`,
                 params,
                 chunkSize: 5 * 1024 * 1024,
                 poolLimit: 6,
-                token: `Bearer ${token}`,
+                // token: `Bearer ${token}`,
             });
 
             if (buffers) {
@@ -291,22 +291,22 @@ export default {
         data,
         controller,
         urlService,
-        applicativeId,
-        moduleId,
+        appUUID,
+        moduleUUID,
     }) {
         try {
             const resource = `${urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.post(
                 `${resource}/upload/initialize-multipart-upload`,
                 data,
                 {
                     signal: controller?.signal,
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Applicative-Id': applicativeId,
-                        'Module-Id': moduleId,
+                        //           Authorization: `Bearer ${token}`,
+                        'App-UUID': appUUID,
+                        'Module-UUID': moduleUUID,
                     },
                 }
             );
@@ -320,8 +320,8 @@ export default {
         }
     },
     async getMultipartPreSignedUrls({
-        applicativeId,
-        moduleId,
+        appUUID,
+        moduleUUID,
         data,
         controller,
         urlService,
@@ -329,16 +329,16 @@ export default {
         try {
             const resource = `${urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.post(
                 `${resource}/upload/get-multipart-pre-signed-urls`,
                 data,
                 {
                     signal: controller?.signal,
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Applicative-Id': applicativeId,
-                        'Module-Id': moduleId,
+                        //    Authorization: `Bearer ${token}`,
+                        'App-UUID': appUUID,
+                        'Module-UUID': moduleUUID,
                     },
                 }
             );
@@ -351,24 +351,19 @@ export default {
             return Promise.reject(error);
         }
     },
-    async finalizeMultipartUpload({
-        applicativeId,
-        moduleId,
-        data,
-        urlService,
-    }) {
+    async finalizeMultipartUpload({ appUUID, moduleUUID, data, urlService }) {
         try {
             const resource = `${urlService}/api/file`;
             // eslint-disable-next-line no-undef
-            const token = await sessionStorage.getItem(NAME_TOKEN);
+            // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.post(
                 `${resource}/upload/finalize-multipart-upload`,
                 data,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Applicative-Id': applicativeId,
-                        'Module-Id': moduleId,
+                        //   Authorization: `Bearer ${token}`,
+                        'App-UUID': appUUID,
+                        'Module-UUID': moduleUUID,
                     },
                 }
             );

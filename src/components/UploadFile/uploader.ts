@@ -1,6 +1,6 @@
 import { orderBy } from 'lodash';
 /* import { AbortError } from './AbortController'; */
-import UploadService, { NAME_TOKEN } from './FileService';
+import UploadService from './FileService'; // , { NAME_TOKEN }
 const DONE_STATE = 4;
 
 interface UploaderOptionProps {
@@ -13,8 +13,8 @@ interface UploaderOptionProps {
     fileSize: number;
     controller: any;
     urlService: string;
-    applicativeId: any;
-    moduleId: any;
+    appUUID: any;
+    moduleUUID: any;
 }
 
 export class Uploader {
@@ -37,8 +37,8 @@ export class Uploader {
     controller: any;
     urlService: string;
 
-    applicativeId: any;
-    moduleId: any;
+    appUUID: any;
+    moduleUUID: any;
 
     onProgressFn: (response: any) => void;
     onErrorFn: (error: any) => void;
@@ -65,8 +65,8 @@ export class Uploader {
         this.fileKey = null;
         this.controller = options?.controller || null;
         this.urlService = options?.urlService || '';
-        this.applicativeId = options?.applicativeId || '';
-        this.moduleId = options?.moduleId || '';
+        this.appUUID = options?.appUUID || '';
+        this.moduleUUID = options?.moduleUUID || '';
 
         this.onProgressFn = () => {};
         this.onErrorFn = () => {};
@@ -97,8 +97,8 @@ export class Uploader {
                         data: videoInitializationUploadInput,
                         controller: this.controller,
                         urlService: this.urlService,
-                        applicativeId: this.applicativeId,
-                        moduleId: this.moduleId,
+                        appUUID: this.appUUID,
+                        moduleUUID: this.moduleUUID,
                     }
                 );
 
@@ -122,8 +122,8 @@ export class Uploader {
                 data: AWSMultipartFileDataInput,
                 controller: this.controller,
                 urlService: this.urlService,
-                applicativeId: this.applicativeId,
-                moduleId: this.moduleId,
+                appUUID: this.appUUID,
+                moduleUUID: this.moduleUUID,
             });
 
             const newParts = urlsResponse.parts.map((iteration: any) => ({
@@ -218,8 +218,8 @@ export class Uploader {
                 const response = await UploadService.finalizeMultipartUpload({
                     data: videoFinalizationMultiPartInput,
                     urlService: this.urlService,
-                    applicativeId: this.applicativeId,
-                    moduleId: this.moduleId,
+                    appUUID: this.appUUID,
+                    moduleUUID: this.moduleUUID,
                 });
                 this.isCompleted = true;
                 return Promise.resolve(response);
@@ -300,6 +300,8 @@ export class Uploader {
 
                 const xhr = (this.activeConnections[part.PartNumber - 1] =
                     new XMLHttpRequest());
+                
+                xhr.withCredentials = true;
 
                 const abort = () => {
                     xhr.abort();
@@ -318,15 +320,15 @@ export class Uploader {
                 xhr.addEventListener('abort', progressListener);
                 xhr.addEventListener('loadend', progressListener);
 
-                const token = sessionStorage.getItem(NAME_TOKEN);
+               // const token = sessionStorage.getItem(NAME_TOKEN);
                 const url = `${this.urlService}/api/file/upload/upload-signed-url`;
 
                 xhr.open('POST', url);
 
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-                xhr.setRequestHeader('Applicative-Id', this.applicativeId);
-                xhr.setRequestHeader('Module-Id', this.moduleId);
+                // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+                xhr.setRequestHeader('App-UUID', this.appUUID);
+                xhr.setRequestHeader('Module-UUID', this.moduleUUID);
 
                 xhr.onload = () => {
                     if (xhr.status >= 200 && xhr.status < 400) {
