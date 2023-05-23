@@ -92,8 +92,8 @@ const httpTransfer = axios.create({
     // baseURL: `${API_URL_TRANSFER_FILE}/api`,
     withCredentials: true,
     timeout: 0,
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN"
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
 });
 httpTransfer.defaults.headers.post['Content-Type'] = 'application/json';
 httpTransfer.defaults.headers.common = headersDefaultTransfer();
@@ -233,19 +233,20 @@ export default {
         }
     },
     //
-    async generateDownloadSignedUrl({ uuid, ...params }) {
+    async generateDownloadSignedUrl({ fileUUID, urlService }) {
         try {
-            const resource = `${params?.urlService}/api/file`;
+            const resource = `${urlService}/api/file`;
             // eslint-disable-next-line no-undef
             // const token = await sessionStorage.getItem(NAME_TOKEN);
             const response = await httpTransfer.get(
-                `${resource}/download/generate-download-signed-url/${uuid}`,
-                {
+                `${resource}/download/generate-download-signed-url/${fileUUID}`
+            ); // ,
+            /* {
                     headers: {
                         //   Authorization: `Bearer ${token}`,
                     },
                 }
-            );
+             */
             if (response?.status === 202) {
                 const { data: parsedResponse } = response;
                 return Promise.resolve(parsedResponse);

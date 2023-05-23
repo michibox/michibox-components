@@ -6,8 +6,8 @@ export { default as AccordionCollapse } from './AccordionCollapse';
 export type { AccordionCollapseProps } from './AccordionCollapse';
 
 export {
-  default as AccordionButton,
-  useAccordionButton,
+    default as AccordionButton,
+    useAccordionButton,
 } from './AccordionButton';
 export type { AccordionButtonProps } from './AccordionButton';
 
@@ -222,9 +222,9 @@ export type { ToggleButtonProps } from './ToggleButton';
 
 export { default as ToggleButtonGroup } from './ToggleButtonGroup';
 export type {
-  ToggleButtonCheckboxProps,
-  ToggleButtonGroupProps,
-  ToggleButtonRadioProps,
+    ToggleButtonCheckboxProps,
+    ToggleButtonGroupProps,
+    ToggleButtonRadioProps,
 } from './ToggleButtonGroup';
 
 export { default as Tooltip } from './Tooltip';
@@ -236,21 +236,20 @@ export type { LinkProps } from './Link';
 export { default as Divider } from './Divider';
 export type { DividerProps } from './Divider';
 
-
 export { default as ErrorMessages } from './ErrorMessages';
 export type { ErrorMessagesProps } from './ErrorMessages';
-
 
 export { default as FileUpload } from './FileUpload';
 export type { FileUploadProps } from './FileUpload';
 
-
 export { default as Reactions } from './Reactions';
 export type { ReactionsProps } from './Reactions';
-
 
 export { default as Select } from './Select';
 export type { SelectProps } from './Select';
 
 export { default as FileUploadS3Multipart } from './FileUploadS3Multipart';
 export type { FileUploadS3MultipartProps } from './FileUploadS3Multipart';
+
+export { default as FileDownloadS3Multipart } from './FileDownloadS3Multipart';
+export type { FileDownloadS3MultipartProps } from './FileDownloadS3Multipart';
