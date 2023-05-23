@@ -473,7 +473,7 @@ export interface ComponentUploadProps {
     readOnly: boolean;
     maxMb: number;
     urlService: string;
-    urlOCRService?: string;
+    urlOCRService?: string | null;
 }
 
 const FileUploadS3Multipart = React.forwardRef((propsMain: any, ref: any) => {
