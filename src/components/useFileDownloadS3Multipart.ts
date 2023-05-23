@@ -33,13 +33,12 @@ export const useFileDownloadS3Multipart = ({
 
     const getFile = async (fileUUID: string) => {
         try {
-            const responseServicePreUrl =
+            // @ts-ignore
+            const { preSignedUrl } =
                 await TransferService.generateDownloadSignedUrl({
                     fileUUID,
                     urlService,
                 });
-            // @ts-ignore
-            const { preSignedUrl } = responseServicePreUrl?.data;
 
             const downloadFile = new DownloadFile();
             downloadFile.id = v4();

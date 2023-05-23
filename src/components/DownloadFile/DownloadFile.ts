@@ -21,7 +21,7 @@ import { AbortController } from '../UploadFile/AbortController';
 export interface detailProps {
     fileStatus: number;
     isDownload: boolean;
-    preSignedUrl?: string|null;
+    preSignedUrl?: string | null;
     progress: number;
 }
 export class DownloadFile extends Evented {
@@ -196,6 +196,9 @@ export class DownloadFile extends Evented {
 
         this.downloader = new Downloader({
             ...downloaderOptions,
+            params: {
+                url: downloaderOptions.preSignedUrl,
+            },
             controller: this.controller,
         });
 
