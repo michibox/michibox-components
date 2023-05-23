@@ -104,7 +104,7 @@ export class Uploader {
 
             const AWSFileDataOutput = initializeReponse;
 
-            this.uploadId = AWSFileDataOutput.fileId;
+            this.uploadId = AWSFileDataOutput.uploadId;
             this.fileKey = AWSFileDataOutput.fileKey;
 
             // retrieving the pre-signed URLs
@@ -112,7 +112,6 @@ export class Uploader {
 
             const AWSMultipartFileDataInput = {
                 uploadId: this.uploadId,
-                fileId: this.uploadId,
                 fileKey: this.fileKey,
                 parts: numberOfparts,
             };
@@ -208,7 +207,6 @@ export class Uploader {
         if (this.uploadId && this.fileKey) {
             const videoFinalizationMultiPartInput = {
                 uploadId: this.uploadId,
-                fileId: this.uploadId,
                 fileKey: this.fileKey,
                 parts: orderBy(this.uploadedParts, ['PartNumber'], ['asc']),
             };
