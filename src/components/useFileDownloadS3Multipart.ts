@@ -7,7 +7,6 @@ import TransferService from './UploadFile/FileService';
 import { getErrorMessage } from './UploadFile/util';
 
 export interface FileDownloadS3MultipartProps {
-    fileUUID: string;
     urlService: string;
     errorCallback?: (values: any) => void;
 }
@@ -27,13 +26,12 @@ const defaultModel = () => ({
 });
 
 export const useFileDownloadS3Multipart = ({
-    fileUUID,
     urlService,
     errorCallback,
 }: FileDownloadS3MultipartProps) => {
     const [detail, setDetail] = useState<any>(defaultModel());
 
-    const initService = async () => {
+    const getFile = async (fileUUID: string) => {
         try {
             const responseServicePreUrl =
                 await TransferService.generateDownloadSignedUrl({
@@ -111,12 +109,9 @@ export const useFileDownloadS3Multipart = ({
         }
     };
 
-    useEffect(() => {
-        initService();
-    }, []);
-
     return {
-        ...detail,
+        file: { ...detail },
+        getFile,
     };
 };
 
