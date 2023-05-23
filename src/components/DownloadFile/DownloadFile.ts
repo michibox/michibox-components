@@ -23,6 +23,7 @@ export interface detailProps {
     isDownload: boolean;
     preSignedUrl?: string | null;
     progress: number;
+    urlService: string;
 }
 export class DownloadFile extends Evented {
     id: any;
@@ -200,6 +201,7 @@ export class DownloadFile extends Evented {
                 url: downloaderOptions.preSignedUrl,
             },
             controller: this.controller,
+            urlService:  downloaderOptions.urlService
         });
 
         this.downloader

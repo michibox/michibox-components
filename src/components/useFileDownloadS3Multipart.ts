@@ -48,6 +48,7 @@ export const useFileDownloadS3Multipart = ({
                 isDownload: true,
                 preSignedUrl,
                 progress: 0,
+                urlService
             };
 
             downloadFile.setDetail({ ...detail });
