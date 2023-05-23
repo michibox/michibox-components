@@ -251,5 +251,5 @@ export type { SelectProps } from './Select';
 export { default as FileUploadS3Multipart } from './FileUploadS3Multipart';
 export type { FileUploadS3MultipartProps } from './FileUploadS3Multipart';
 
-export { default as FileDownloadS3Multipart } from './FileDownloadS3Multipart';
-export type { FileDownloadS3MultipartProps } from './FileDownloadS3Multipart';
+export { default as useFileDownloadS3Multipart } from './useFileDownloadS3Multipart';
+export type { FileDownloadS3MultipartProps } from './useFileDownloadS3Multipart';

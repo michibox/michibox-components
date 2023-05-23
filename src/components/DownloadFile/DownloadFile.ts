@@ -21,7 +21,7 @@ import { AbortController } from '../UploadFile/AbortController';
 export interface detailProps {
     fileStatus: number;
     isDownload: boolean;
-    preSignedUrl: string;
+    preSignedUrl?: string|null;
     progress: number;
 }
 export class DownloadFile extends Evented {
@@ -86,13 +86,20 @@ export class DownloadFile extends Evented {
         return this;
     }
 
-    async setComplete(fileSize = 0, blob = null) {
+    async setComplete(
+        fileSize = 0,
+        blob = null,
+        fileName = null,
+        contentType = null
+    ) {
         this.detail = {
             ...this.getDetail(),
             progress: 100,
             fileSize,
             fileStatus: COMPLETE_STATUS,
             blob,
+            fileName,
+            contentType,
         };
 
         /*  if (this.detail?.executeAfterDownload) {
@@ -201,8 +208,8 @@ export class DownloadFile extends Evented {
                     this.setProgress({ percentage, fileSize });
                 }
             })
-            .onComplete(({ fileSize, blob }) => {
-                this.setComplete(fileSize, blob);
+            .onComplete(({ fileSize, blob, fileName, contentType }) => {
+                this.setComplete(fileSize, blob, fileName, contentType);
             })
             .onError((event: any) => {
                 this.setError(event);

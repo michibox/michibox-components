@@ -50,8 +50,8 @@ export class Downloader {
         // number of parallel downloads
         this.threadsQuantity = 6; //  Math.min(options.threadsQuantity || 5, 15)
         this.params = options.params;
-        this.fileName = options.fileName;
-        this.extension = options.extension;
+        this.fileName = '';
+        this.extension = '';
         this.aborted = false;
         this.isCompleted = false;
         this.downloadedSize = 0;
@@ -82,12 +82,17 @@ export class Downloader {
             // eslint-disable-next-line prefer-const
             const { params, chunkSize } = this;
             // eslint-disable-next-line no-undef
-            const { contentLength, contentDisposition, contentType }: any =
-                await this.getContentLength(params);
+            const {
+                contentLength,
+                contentDisposition,
+                contentType,
+                fileName,
+            }: any = await this.getContentLength(params);
 
             this.contentLength = contentLength;
             this.contentDisposition = contentDisposition;
             this.contentType = contentType;
+            this.fileName = fileName;
 
             const chunks =
                 typeof chunkSize === 'number'
@@ -212,7 +217,7 @@ export class Downloader {
             const buffers = this.concatenate(sortedBuffers);
 
             /* this.saveAs({
-                name: this.fileName,
+                fileName: this.fileName,
                 buffers,
                 mime: this.contentType,
                 extension: this.extension,
@@ -221,11 +226,13 @@ export class Downloader {
             return {
                 fileSize: this.contentLength,
                 blob: this.getBlob({
-                    name: this.fileName,
+                    fileName: this.fileName,
                     buffers,
                     mime: this.contentType,
-                    extension: this.extension,
+                    // extension: this.extension,
                 }),
+                fileName: this.fileName,
+                contentType: this.contentType,
             };
         } catch (error) {
             this.onErrorFn(error);
@@ -393,6 +400,18 @@ export class Downloader {
             xhr.send();
             // eslint-disable-next-line func-names
             xhr.onload = function () {
+                const disposition = xhr.getResponseHeader(
+                    'Content-Disposition'
+                );
+                let fileName = '';
+
+                const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                // @ts-ignore
+                const matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    fileName = matches[1].replace(/['"]/g, '');
+                }
+
                 resolve({
                     // xhr.getResponseHeader("Accept-Ranges") === "bytes" &&
                     // eslint-disable-next-line no-bitwise
@@ -402,35 +421,34 @@ export class Downloader {
                         'Content-Disposition'
                     ),
                     contentType: xhr.getResponseHeader('Content-Type'),
+                    fileName: fileName,
                 });
             };
             xhr.onerror = reject;
         });
     }
-    getBlob({
-        name,
-        buffers,
-        mime = 'application/octet-stream',
-        extension,
-    }): Blob {
-        const fileName = name;
+    getBlob({ fileName, buffers, mime = 'application/octet-stream' }): Blob {
+        /*  const fileName = name; */
 
-        const removeExtension = (filename: any) => {
+        /* const removeExtension = (filename: any) => {
             const lastDotPosition = filename.lastIndexOf('.');
             if (lastDotPosition === -1) return filename;
             // eslint-disable-next-line no-else-return
             else return filename.substr(0, lastDotPosition);
-        };
-        const getFullName = () => `${removeExtension(fileName)}.${extension}`;
+        }; */
+        //  const getFullName = () => `${removeExtension(fileName)}.${extension}`;
 
         const blob = new Blob([buffers], { type: mime });
         // @ts-ignore
-        blob.name = getFullName();
+        blob.name = fileName; // getFullName();
         return blob;
     }
-    saveAs({ name, buffers, mime = 'application/octet-stream', extension }) {
-        const fileName = name;
-
+    saveAs({
+        fileName,
+        buffers,
+        mime = 'application/octet-stream',
+        extension,
+    }) {
         const removeExtension = (filename: any) => {
             const lastDotPosition = filename.lastIndexOf('.');
             if (lastDotPosition === -1) return filename;
@@ -445,7 +463,7 @@ export class Downloader {
 
         link.setAttribute('download', getFullName());
 
-        link.download = name || Math.random();
+        link.download = fileName || Math.random();
         link.href = blobUrl;
         link.click();
         // @ts-ignore

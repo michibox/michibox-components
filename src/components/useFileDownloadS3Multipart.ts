@@ -13,20 +13,25 @@ export interface FileDownloadS3MultipartProps {
 }
 
 const defaultModel = () => ({
-    progress: 0,
     id: null,
     detail: null,
     instance: null,
     isCompleted: false,
+    fileName: null,
+    contentType: null,
+    url: null,
+    fileStatus: PENDING_STATUS,
+    isDownload: true,
+    preSignedUrl: '',
+    progress: 0,
 });
 
-export const FileDownloadS3Multipart = ({
+export const useFileDownloadS3Multipart = ({
     fileUUID,
     urlService,
     errorCallback,
 }: FileDownloadS3MultipartProps) => {
-    const [detailProgress, setDetailProgress] = useState(defaultModel());
-    const [urlBlob, setUrlBlob] = useState<string | null>(null);
+    const [detail, setDetail] = useState<any>(defaultModel());
 
     const initService = async () => {
         try {
@@ -62,7 +67,7 @@ export const FileDownloadS3Multipart = ({
                                 'Existió un error al cargar el archivo, intente nuevamente.',
                         });
                     }
-                    setDetailProgress(defaultModel());
+                    setDetail(defaultModel());
                 }
             });
 
@@ -71,27 +76,30 @@ export const FileDownloadS3Multipart = ({
                 const detail = target.getDetail();
                 const instance = target.getInstance();
 
-                setDetailProgress((values) => ({
+                setDetail((values: any) => ({
                     ...values,
+                    ...detail,
                     id,
-                    detail: { ...detail },
                     instance: instance,
-                    progress: detail.progress
+                    progress: detail.progress,
                 }));
             });
 
             downloadFile.on('completeDownload', ({ target }: any) => {
                 const detail = target.getDetail();
-                const { blob } = detail;
+                const { blob, fileName, contentType } = detail;
                 const url = (window.URL || window.webkitURL).createObjectURL(
                     blob
                 );
-                setUrlBlob(url);
-                setDetailProgress((values) => ({
+
+                setDetail((values: any) => ({
                     ...values,
-                    detail: { ...detail },
+                    ...detail,
                     progress: detail.progress,
-                    isCompleted: true
+                    isCompleted: true,
+                    fileName,
+                    contentType,
+                    url,
                 }));
             });
         } catch (errors) {
@@ -108,9 +116,8 @@ export const FileDownloadS3Multipart = ({
     }, []);
 
     return {
-        detailProgress,
-        urlBlob,
+        ...detail,
     };
 };
 
-export default FileDownloadS3Multipart;
+export default useFileDownloadS3Multipart;
