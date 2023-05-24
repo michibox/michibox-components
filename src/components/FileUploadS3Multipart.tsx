@@ -173,7 +173,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                     setDetailProgress((values) => {
                         const payload = {
                             ...values,
-                            message: 'Cargando documento',
+                            message: 'preparando carga de documento',
                             progress: 0,
                             status: true,
                         };
@@ -252,7 +252,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                                 id,
                                 detail: { ...detail },
                                 instance: instance,
-                                message: 'cargando',
+                                message: 'subiendo..',
                                 progress: detail.progress,
                                 status: true,
                             };
@@ -277,6 +277,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                                     ...values,
                                     status: false,
                                     message: 'completo',
+                                    progress: 100
                                 };
                                 if (progressCallback) {
                                     progressCallback({ ...payload });
@@ -328,7 +329,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                     setDetailProgress((values) => {
                         const payload = {
                             ...values,
-                            message: 'Validando documento',
+                            message: 'validando documento',
                             progress: 0,
                             status: true,
                         };
@@ -364,25 +365,26 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                         10
                     );
 
+                    setDetailProgress((values) => {
+                        const payload = {
+                            ...values,
+                            message: 'validando tamaño de archivo',
+                            progress: 0,
+                            status: false,
+                        };
+                        if (progressCallback) {
+                            progressCallback({ ...payload });
+                        }
+                        return payload;
+                    });
+
                     if (sizeCheck > maxMb) {
                         // 5MB
                         // @ts-ignore
                         inputRef.current.value = null;
                         setFileName(placeHolder || 'Seleccionar foto');
 
-                        setDetailProgress((values) => {
-                            const payload = {
-                                ...values,
-                                message: 'Validando tamaño de archivo',
-                                progress: 0,
-                                status: false,
-                            };
-                            if (progressCallback) {
-                                progressCallback({ ...payload });
-                            }
-                            return payload;
-                        });
-
+                    
                         errorCallback({
                             uuid: null,
                             fileName: myFile.name,
@@ -405,16 +407,6 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                     });
                     console.log('errors', errors);
                 } finally {
-                    setDetailProgress(() => {
-                        const payload = {
-                            ...defaultModel(),
-                        };
-                        if (progressCallback) {
-                            progressCallback({ ...payload });
-                        }
-                        return payload;
-                    });
-
                     // @ts-ignore
                     event.target.value = null;
                 }
