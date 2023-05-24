@@ -437,7 +437,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
 
                         initPreUploadCallback({
                             blobUrl,
-                            ...myFile
+                            myFile
                         });
                     }
 
