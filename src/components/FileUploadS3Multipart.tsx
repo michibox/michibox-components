@@ -266,7 +266,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
 
                         if (initCallback) {
                             initCallback({
-                                fileId: detail.fileInit.id,
+                                fileUUID: detail.fileInit.uuid,
                                 fileName: detail.fileName,
                                 fileSize: detail.fileSize,
                                 contentType: detail.contentType,
