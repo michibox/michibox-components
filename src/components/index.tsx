@@ -253,3 +253,7 @@ export type { FileUploadS3MultipartProps } from './FileUploadS3Multipart';
 
 export { default as useFileDownloadS3Multipart } from './useFileDownloadS3Multipart';
 export type { FileDownloadS3MultipartProps } from './useFileDownloadS3Multipart';
+
+
+export { default as useFileUploadS3Multipart } from './useFileUploadS3Multipart';
+export type { useFileUploadS3MultipartProps } from './useFileUploadS3Multipart';
