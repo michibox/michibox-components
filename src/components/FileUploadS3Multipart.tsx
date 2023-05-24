@@ -446,12 +446,6 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                 }
             };
 
-            useEffect(() => {
-                if (progressCallback) {
-                    progressCallback({ ...detailProgress });
-                }
-            }, []);
-
             return (
                 <Fragment>
                     <Form.File
