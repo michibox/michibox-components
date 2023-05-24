@@ -23,12 +23,14 @@ export interface FileUploadS3MultipartProps {
     accept?: string;
     uploadedCallback: (values: any) => void | undefined;
     errorCallback: (values: any) => void | undefined;
+    progressCallback?: (values: any) => void | undefined;
     style?: any;
     placeHolder?: string;
     setSelectedFile?: (values: any) => void | null | undefined;
     maxMb?: number;
     urlService: string;
     urlOCRService?: string | null | undefined;
+    showModalUploading?: boolean;
 }
 
 const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
@@ -54,7 +56,9 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                 urlService = '',
                 urlOCRService = null,
                 errorCallback,
-                uploadedCallback
+                uploadedCallback,
+                progressCallback,
+                showModalUploading = false,
             },
             ref: any
         ) => {
@@ -351,6 +355,12 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                 }
             };
 
+            useEffect(() => {
+                if (progressCallback) {
+                    progressCallback({ ...detailProgress });
+                }
+            }, [detailProgress]);
+
             return (
                 <Fragment>
                     <Form.File
@@ -364,11 +374,13 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                         accept={accept}
                         ref={inputRef}
                     />
-                    <ModalUploading
-                        show={detailProgress?.status}
-                        message={detailProgress?.message}
-                        progress={detailProgress?.progress}
-                    />
+                    {showModalUploading && (
+                        <ModalUploading
+                            show={detailProgress?.status}
+                            message={detailProgress?.message}
+                            progress={detailProgress?.progress}
+                        />
+                    )}
                 </Fragment>
             );
         }

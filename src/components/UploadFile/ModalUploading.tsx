@@ -59,7 +59,7 @@ const ModalUploading = ({ show, message, progress }) => (
                     style={{
                         position: 'relative',
                         top: '1.5rem',
-                        backgroundColor: 'grey',
+                        /* backgroundColor: 'grey', */
                     }}
                 >
                     <div className="progress">
