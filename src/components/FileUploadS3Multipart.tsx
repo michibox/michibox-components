@@ -265,7 +265,14 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                         const instance = target.getInstance();
 
                         if (initCallback) {
-                            initCallback({ id, instance: instance, ...detail });
+                            initCallback({
+                                fileId: detail.fileInit.id,
+                                fileName: detail.fileName,
+                                fileSize: detail.fileSize,
+                                contentType: detail.contentType,
+                                extension: detail.extension,
+                                sha256: detail.sha256,
+                            });
                         }
                     });
 
