@@ -239,6 +239,22 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                                 }
                                 return payload;
                             });
+                        } else {
+                            setDetailProgress((values) => {
+                                const payload = {
+                                    ...values,
+                                    id,
+                                    detail: { ...detail },
+                                    instance: instance,
+                                    message: 'ejecutando multiparts...',
+                                    progress: detail.progress,
+                                    status: true,
+                                };
+                                if (progressCallback) {
+                                    progressCallback({ ...payload });
+                                }
+                                return payload;
+                            });
                         }
                     });
                     uploadFile.on('progress', ({ target }: any) => {
@@ -252,7 +268,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                                 id,
                                 detail: { ...detail },
                                 instance: instance,
-                                message: 'subiendo..',
+                                message: 'subiendo...',
                                 progress: detail.progress,
                                 status: true,
                             };
@@ -277,7 +293,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                                     ...values,
                                     status: false,
                                     message: 'completo',
-                                    progress: 100
+                                    progress: 100,
                                 };
                                 if (progressCallback) {
                                     progressCallback({ ...payload });
@@ -384,7 +400,6 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                         inputRef.current.value = null;
                         setFileName(placeHolder || 'Seleccionar foto');
 
-                    
                         errorCallback({
                             uuid: null,
                             fileName: myFile.name,
