@@ -107,6 +107,7 @@ export class UploadFile extends Evented {
             fileInit: { ...response },
         };
         this.fire('status');
+        this.fire('initUpload');
         return this;
     }
 

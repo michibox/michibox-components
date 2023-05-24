@@ -24,6 +24,7 @@ export interface FileUploadS3MultipartProps {
     uploadedCallback: (values: any) => void | undefined;
     errorCallback: (values: any) => void | undefined;
     progressCallback?: (values: any) => void | undefined;
+    initCallback?: (values: any) => void | undefined;
     style?: any;
     placeHolder?: string;
     setSelectedFile?: (values: any) => void | null | undefined;
@@ -58,6 +59,7 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                 errorCallback,
                 uploadedCallback,
                 progressCallback,
+                initCallback,
                 showModalUploading = false,
             },
             ref: any
@@ -257,6 +259,16 @@ const FileUploadS3Multipart: React.FC<FileUploadS3MultipartProps> =
                             });
                         }
                     });
+                    uploadFile.on('initUpload', ({ target }: any) => {
+                        const { id } = target;
+                        const detail = target.getDetail();
+                        const instance = target.getInstance();
+
+                        if (initCallback) {
+                            initCallback({ id, instance: instance, ...detail });
+                        }
+                    });
+
                     uploadFile.on('progress', ({ target }: any) => {
                         const { id } = target;
                         const detail = target.getDetail();
