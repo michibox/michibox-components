@@ -160,12 +160,14 @@ const useFileUploadS3Multipart = ({
                 const instance = target.getInstance();
 
                 if (detail?.fileStatus === ERROR_STATUS) {
-                    errorCallback({
-                        uuid: null,
-                        fileName: file.name,
-                        message:
-                            'Existió un error al cargar el archivo, intente nuevamente.',
-                    });
+                    if (errorCallback) {
+                        errorCallback({
+                            uuid: null,
+                            fileName: file.name,
+                            message:
+                                'Existió un error al cargar el archivo, intente nuevamente.',
+                        });
+                    }
 
                     setDetailProgress(() => {
                         const payload = {
@@ -249,12 +251,14 @@ const useFileUploadS3Multipart = ({
                     return payload;
                 });
 
-                uploadedCallback({
-                    ...detail,
-                    fileName: file.name,
-                    mimeType: file.type,
-                    isEmpty,
-                });
+                if (uploadedCallback) {
+                    uploadedCallback({
+                        ...detail,
+                        fileName: file.name,
+                        mimeType: file.type,
+                        isEmpty,
+                    });
+                }
             });
         } catch (errors) {
             setDetailProgress(() => {
@@ -266,12 +270,13 @@ const useFileUploadS3Multipart = ({
                 }
                 return payload;
             });
-
-            errorCallback({
-                uuid: null,
-                fileName: file.name,
-                message: getErrorMessage(errors),
-            });
+            if (errorCallback) {
+                errorCallback({
+                    uuid: null,
+                    fileName: file.name,
+                    message: getErrorMessage(errors),
+                });
+            }
         }
     };
 
