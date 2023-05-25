@@ -266,7 +266,7 @@ export class Downloader {
 
                 const xhr = (this.activeConnections[part.PartNumber - 1] =
                     new XMLHttpRequest());
-                xhr.withCredentials = true;
+               // xhr.withCredentials = true;
 
                 function abort() {
                     xhr.abort();

@@ -299,7 +299,7 @@ export class Uploader {
                 const xhr = (this.activeConnections[part.PartNumber - 1] =
                     new XMLHttpRequest());
                 
-                xhr.withCredentials = true;
+                // xhr.withCredentials = true;
 
                 const abort = () => {
                     xhr.abort();
