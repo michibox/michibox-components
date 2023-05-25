@@ -322,7 +322,7 @@ export class Uploader {
                // const url = `${this.urlService}/api/file/upload/upload-signed-url`;
                 const url = part.signedUrl;
 
-                xhr.open('POST', url);
+                xhr.open('PUT', url);
 
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
