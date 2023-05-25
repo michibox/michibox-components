@@ -292,9 +292,9 @@ export class Uploader {
                     return reject('eeor'); // return reject(new AbortError())
                 }
 
-                const data = new FormData();
+                /* const data = new FormData();
                 data.append('file', file);
-                data.append('signedUrl', part.signedUrl);
+                data.append('signedUrl', part.signedUrl); */
 
                 const xhr = (this.activeConnections[part.PartNumber - 1] =
                     new XMLHttpRequest());
@@ -319,14 +319,15 @@ export class Uploader {
                 xhr.addEventListener('loadend', progressListener);
 
                // const token = sessionStorage.getItem(NAME_TOKEN);
-                const url = `${this.urlService}/api/file/upload/upload-signed-url`;
+               // const url = `${this.urlService}/api/file/upload/upload-signed-url`;
+                const url = part.signedUrl;
 
                 xhr.open('POST', url);
 
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 // xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-                xhr.setRequestHeader('App-UUID', this.appUUID);
-                xhr.setRequestHeader('Module-UUID', this.moduleUUID);
+               // xhr.setRequestHeader('App-UUID', this.appUUID);
+               // xhr.setRequestHeader('Module-UUID', this.moduleUUID);
 
                 xhr.onload = () => {
                     if (xhr.status >= 200 && xhr.status < 400) {
