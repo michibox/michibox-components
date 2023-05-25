@@ -390,7 +390,7 @@ export class Downloader {
     getContentLength(params: any) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
+            // xhr.withCredentials = true;
 
             // const parameters = `url=${encodeURIComponent(params.url)}`;
 
