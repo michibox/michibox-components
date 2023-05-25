@@ -377,7 +377,7 @@ export class Uploader {
                     reject('eeor'); // new AbortError()
                     delete this.activeConnections[part.PartNumber - 1];
                 };
-                xhr.send(data)
+                xhr.send(file)
             } else {
                 reject();
             }
