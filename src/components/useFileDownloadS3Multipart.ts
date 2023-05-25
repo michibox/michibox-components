@@ -34,7 +34,10 @@ export const useFileDownloadS3Multipart = ({
     const getFile = async (fileUUID: string) => {
         try {
             // @ts-ignore
-            const { preSignedUrl } =
+            const { preSignedUrls : {
+                urlGet,
+                urlHead
+            } } =
                 await TransferService.generateDownloadSignedUrl({
                     fileUUID,
                     urlService,
@@ -46,7 +49,8 @@ export const useFileDownloadS3Multipart = ({
             const detail = {
                 fileStatus: PENDING_STATUS,
                 isDownload: true,
-                preSignedUrl,
+                urlGet,
+                urlHead,
                 progress: 0,
                 urlService
             };

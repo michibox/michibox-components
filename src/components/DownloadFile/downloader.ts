@@ -284,9 +284,9 @@ export class Downloader {
                 xhr.addEventListener('abort', progressListener);
                 xhr.addEventListener('loadend', progressListener);
 
-               // const parameters = `url=${encodeURIComponent(params.url)}`;
+      
                
-                xhr.open('GET', params.url , true); // `${this.urlService}?${parameters}`
+                xhr.open('GET', params.urlGet , true);
 
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 // xhr.setRequestHeader('Authorization', this.token)
@@ -390,11 +390,9 @@ export class Downloader {
     getContentLength(params: any) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            // xhr.withCredentials = true;
 
-            // const parameters = `url=${encodeURIComponent(params.url)}`;
 
-            xhr.open('HEAD', params.url); //  `${this.urlService}?${parameters}`
+            xhr.open('HEAD', params.urlHead);
 
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             // xhr.setRequestHeader('Authorization', token)
