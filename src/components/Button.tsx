@@ -145,7 +145,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 animateIcon,
                 animateIconClass,
                 animateInfiniteIcon,
-                tooltip = null,
+                tooltip,
                 ...props
             },
             ref
@@ -237,6 +237,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     )}
                 </Component>
             );
+            
             if (!tooltip) {
                 return <RenderButton />;
             }
