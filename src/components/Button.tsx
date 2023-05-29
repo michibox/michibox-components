@@ -9,6 +9,9 @@ import {
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ButtonVariant } from './types';
+import OverlayTrigger from './OverlayTrigger';
+import Tooltip from './Tooltip';
+import { v4 as uuid } from 'uuid';
 
 const faAsterisk = {
     prefix: 'fal',
@@ -35,6 +38,7 @@ export interface ButtonProps
     animateIcon?: boolean;
     animateInfiniteIcon?: boolean;
     animateIconClass?: any;
+    tooltip?: any;
 }
 
 export type CommonButtonProps = 'href' | 'size' | 'variant' | 'disabled';
@@ -106,6 +110,8 @@ const propTypes = {
     type: PropTypes.oneOf(['button', 'reset', 'submit', null]),
 
     as: PropTypes.elementType,
+
+    tooltip: PropTypes.any,
 };
 
 const defaultProps = {
@@ -139,6 +145,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 animateIcon,
                 animateIconClass,
                 animateInfiniteIcon,
+                tooltip = null,
                 ...props
             },
             ref
@@ -170,7 +177,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     animateIcon &&
                         animateIconClass &&
                         `animate__animated ${animateIconClass}`,
-                        animateInfiniteIcon && 'animate__infinite'
+                    animateInfiniteIcon && 'animate__infinite'
                 );
 
                 if (animateIcon) {
@@ -198,7 +205,11 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 );
             };
 
-            return (
+            const renderTooltip = () => (
+                <Tooltip id={`button-tooltip-${uuid()}`}>{tooltip}</Tooltip>
+            );
+
+            const RenderButton = () => (
                 <Component
                     {...buttonProps}
                     {...props}
@@ -225,6 +236,15 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                         </React.Fragment>
                     )}
                 </Component>
+            );
+            if (!tooltip) {
+                return <RenderButton />;
+            }
+
+            return (
+                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <RenderButton />
+                </OverlayTrigger>
             );
         }
     );
