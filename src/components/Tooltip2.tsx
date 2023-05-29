@@ -9,6 +9,10 @@ export interface ITooltipProps {
     trigger?: string;
     popperClassName?: any;
     innerClassName?: any;
+    children: React.ReactElement;
+    isOpen?: boolean;
+    target?: any;
+    toggle?: () => void;
 }
 
 export const Tooltip2: React.FC<ITooltipProps> = ({
@@ -16,6 +20,7 @@ export const Tooltip2: React.FC<ITooltipProps> = ({
     autohide = true,
     placementPrefix = 'bs-tooltip',
     trigger = 'hover focus',
+    children,
     ...propsMain
 }) => {
     const props = {
@@ -23,6 +28,7 @@ export const Tooltip2: React.FC<ITooltipProps> = ({
         autohide,
         placementPrefix,
         trigger,
+        children,
         ...propsMain,
     };
     const popperClasses = classNames('tooltip', 'show', props.popperClassName);

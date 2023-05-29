@@ -129,9 +129,9 @@ const defaultProps = {
 const useTooltip = (tooltip: any) => {
     if (!tooltip) {
         return {
-            tooltipOpen: null,
+            tooltipOpen: false,
             setTooltipOpen: null,
-            toggle: null,
+            toggle: () => {},
             tooltipId: null,
         };
     }
@@ -266,7 +266,6 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     </Component>
 
                     {tooltip && tooltipId && (
-                        // @ts-ignore
                         <Tooltip2
                             placement={'top'}
                             isOpen={tooltipOpen}
