@@ -41,7 +41,7 @@
     "prop-types": "^15.8.1",
     "prop-types-extra": "^1.1.0",
     "react-full-screen": "^1.1.1",
-    "react-popper": "^2.3.0",
+    "react-popper": "^2.2.4",
     "react-select": "^5.7.0",
     "react-spinners": "^0.13.8",
     "react-transition-group": "^4.4.2",

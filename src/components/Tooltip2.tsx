@@ -15,34 +15,48 @@ export interface ITooltipProps {
     toggle?: () => void;
 }
 
-export const Tooltip2: React.FC<ITooltipProps> = ({
-    placement = 'top',
-    autohide = true,
-    placementPrefix = 'bs-tooltip',
-    trigger = 'hover focus',
-    children,
-    ...propsMain
-}) => {
-    const props = {
-        placement,
-        autohide,
-        placementPrefix,
-        trigger,
-        children,
-        ...propsMain,
-    };
-    const popperClasses = classNames('tooltip', 'show', props.popperClassName);
+export const Tooltip2 = React.forwardRef<HTMLInputElement, ITooltipProps>(
+    (
+        {
+            placement = 'top',
+            autohide = true,
+            placementPrefix = 'bs-tooltip',
+            trigger = 'hover focus',
+            children,
+            ...propsMain
+        },
+        // @ts-ignore
+        ref
+    ) => {
+        const props = {
+            placement,
+            autohide,
+            placementPrefix,
+            trigger,
+            children,
+            ...propsMain,
+        };
 
-    const classes = classNames('tooltip-inner', props.innerClassName);
+        /*  if (ref) {
+            props.ref = ref;
+        } */
 
-    return (
-        <TooltipPopoverWrapper
-            {...props}
-            arrowClassName="tooltip-arrow"
-            popperClassName={popperClasses}
-            innerClassName={classes}
-        />
-    );
-};
+        const popperClasses = classNames(
+            'tooltip',
+            'show',
+            props.popperClassName
+        );
+        const classes = classNames('tooltip-inner', props.innerClassName);
+
+        return (
+            <TooltipPopoverWrapper
+                {...props}
+                arrowClassName="tooltip-arrow"
+                popperClassName={popperClasses}
+                innerClassName={classes}
+            />
+        );
+    }
+);
 
 export default Tooltip2;
