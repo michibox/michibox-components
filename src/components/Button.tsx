@@ -9,9 +9,8 @@ import {
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ButtonVariant } from './types';
-import OverlayTrigger from './OverlayTrigger';
-import { Tooltip2 } from './Tooltip2';
 import { v4 as uuid } from 'uuid';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 const faAsterisk = {
     prefix: 'fal',
@@ -129,20 +128,20 @@ const defaultProps = {
 const useTooltip = (tooltip: any) => {
     if (!tooltip) {
         return {
-            tooltipOpen: false,
+            /*  tooltipOpen: false,
             setTooltipOpen: null,
-            toggle: () => {},
+            toggle: () => {}, */
             tooltipId: null,
         };
     }
-    const [tooltipOpen, setTooltipOpen] = React.useState(false);
-    const toggle = () => setTooltipOpen(!tooltipOpen);
+    /* const [tooltipOpen, setTooltipOpen] = React.useState(false);
+    const toggle = () => setTooltipOpen(!tooltipOpen); */
     const [tooltipId] = React.useState(`button-tooltip-${uuid()}`);
 
     return {
-        tooltipOpen,
+        /*  tooltipOpen,
         setTooltipOpen,
-        toggle,
+        toggle, */
         tooltipId,
     };
 };
@@ -170,8 +169,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
             },
             ref
         ) => {
-            const { tooltipOpen, setTooltipOpen, toggle, tooltipId } =
-                useTooltip(tooltip);
+            const { tooltipId } = useTooltip(tooltip);
+            // tooltipOpen, setTooltipOpen, toggle,
 
             const prefix = useBootstrapPrefix(bsPrefix, 'btn');
             const [buttonProps, { tagName }] = useButtonProps({
@@ -247,7 +246,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                         {...{
                             ...(tooltip &&
                                 tooltipId && {
-                                    id: tooltipId,
+                                    'data-tooltip-id': tooltipId,
+                                    'data-tooltip-content': tooltip,
                                 }),
                         }}
                     >
@@ -266,14 +266,7 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                     </Component>
 
                     {tooltip && tooltipId && (
-                        <Tooltip2
-                            placement={'top'}
-                            isOpen={tooltipOpen}
-                            target={tooltipId}
-                            toggle={toggle}
-                        >
-                            <p>{tooltip}</p>
-                        </Tooltip2>
+                        <ReactTooltip id={tooltipId} place="top" />
                     )}
                 </React.Fragment>
             );

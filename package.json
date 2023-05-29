@@ -44,6 +44,7 @@
     "react-popper": "^2.2.4",
     "react-select": "^5.7.0",
     "react-spinners": "^0.13.8",
+    "react-tooltip": "^5.13.1",
     "react-transition-group": "^4.4.2",
     "uncontrollable": "^7.2.1",
     "uuid": "^9.0.0",

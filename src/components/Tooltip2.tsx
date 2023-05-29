@@ -13,6 +13,7 @@ export interface ITooltipProps {
     isOpen?: boolean;
     target?: any;
     toggle?: () => void;
+    fade?: boolean;
 }
 
 export const Tooltip2 = React.forwardRef<HTMLInputElement, ITooltipProps>(
@@ -25,7 +26,6 @@ export const Tooltip2 = React.forwardRef<HTMLInputElement, ITooltipProps>(
             children,
             ...propsMain
         },
-        // @ts-ignore
         ref
     ) => {
         const props = {
@@ -36,10 +36,6 @@ export const Tooltip2 = React.forwardRef<HTMLInputElement, ITooltipProps>(
             children,
             ...propsMain,
         };
-
-        /*  if (ref) {
-            props.ref = ref;
-        } */
 
         const popperClasses = classNames(
             'tooltip',
@@ -54,6 +50,7 @@ export const Tooltip2 = React.forwardRef<HTMLInputElement, ITooltipProps>(
                 arrowClassName="tooltip-arrow"
                 popperClassName={popperClasses}
                 innerClassName={classes}
+                ref={ref}
             />
         );
     }
