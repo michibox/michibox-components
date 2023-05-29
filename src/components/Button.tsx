@@ -10,7 +10,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 import { ButtonVariant } from './types';
 import OverlayTrigger from './OverlayTrigger';
-import Tooltip from './Tooltip';
+import { Tooltip2 } from './Tooltip2';
 import { v4 as uuid } from 'uuid';
 
 const faAsterisk = {
@@ -126,6 +126,26 @@ const defaultProps = {
     animateIconClass: false,
 };
 
+const useTooltip = (tooltip: any) => {
+    if (!tooltip) {
+        return {
+            tooltipOpen: null,
+            setTooltipOpen: null,
+            toggle: null,
+            tooltipId: null,
+        };
+    }
+    const [tooltipOpen, setTooltipOpen] = React.useState(false);
+    const toggle = () => setTooltipOpen(!tooltipOpen);
+    const [tooltipId] = React.useState(`button-tooltip-${uuid()}`);
+
+    return {
+        tooltipOpen,
+        setTooltipOpen,
+        toggle,
+        tooltipId,
+    };
+};
 export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
     React.forwardRef<HTMLButtonElement, ButtonProps>(
         (
@@ -150,6 +170,9 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
             },
             ref
         ) => {
+            const { tooltipOpen, setTooltipOpen, toggle, tooltipId } =
+                useTooltip(tooltip);
+
             const prefix = useBootstrapPrefix(bsPrefix, 'btn');
             const [buttonProps, { tagName }] = useButtonProps({
                 tagName: as,
@@ -205,47 +228,55 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
                 );
             };
 
-            const renderTooltip = () => (
-                <Tooltip id={`button-tooltip-${uuid()}`}>{tooltip}</Tooltip>
-            );
-
-            const RenderButton = () => (
-                <Component
-                    {...buttonProps}
-                    {...props}
-                    ref={ref}
-                    className={classNames(
-                        className,
-                        prefix,
-                        active && 'active',
-                        variant && `${prefix}-${variant}`,
-                        size && `${prefix}-${size}`,
-                        props.href && props.disabled && 'disabled',
-                        loading && 'disabled',
-                        fullWidth && 'w-100'
-                    )}
-                >
-                    {iconRight && (
-                        <React.Fragment>
-                            {label ? label : children} {icon && getIcon(icon)}
-                        </React.Fragment>
-                    )}
-                    {!iconRight && (
-                        <React.Fragment>
-                            {icon && getIcon(icon)} {label ? label : children}
-                        </React.Fragment>
-                    )}
-                </Component>
-            );
-            
-            if (!tooltip) {
-                return <RenderButton />;
-            }
-
             return (
-                <OverlayTrigger placement="top" overlay={renderTooltip}>
-                    <RenderButton />
-                </OverlayTrigger>
+                <React.Fragment>
+                    <Component
+                        {...buttonProps}
+                        {...props}
+                        ref={ref}
+                        className={classNames(
+                            className,
+                            prefix,
+                            active && 'active',
+                            variant && `${prefix}-${variant}`,
+                            size && `${prefix}-${size}`,
+                            props.href && props.disabled && 'disabled',
+                            loading && 'disabled',
+                            fullWidth && 'w-100'
+                        )}
+                        {...{
+                            ...(tooltip &&
+                                tooltipId && {
+                                    id: tooltipId,
+                                }),
+                        }}
+                    >
+                        {iconRight && (
+                            <React.Fragment>
+                                {label ? label : children}{' '}
+                                {icon && getIcon(icon)}
+                            </React.Fragment>
+                        )}
+                        {!iconRight && (
+                            <React.Fragment>
+                                {icon && getIcon(icon)}{' '}
+                                {label ? label : children}
+                            </React.Fragment>
+                        )}
+                    </Component>
+
+                    {tooltip && tooltipId && (
+                        // @ts-ignore
+                        <Tooltip2
+                            placement={'top'}
+                            isOpen={tooltipOpen}
+                            target={tooltipId}
+                            toggle={toggle}
+                        >
+                            <p>{tooltip}</p>
+                        </Tooltip2>
+                    )}
+                </React.Fragment>
             );
         }
     );
