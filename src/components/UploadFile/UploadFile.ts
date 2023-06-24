@@ -69,6 +69,7 @@ export class UploadFile extends Evented {
             ...detail,
             progress: 0,
             fileStatus: PENDING_STATUS,
+            httpStatus: null
         };
         /* console.log("AbortController", AbortController)
         console.log("new AbortController(", new AbortController()) */
@@ -133,6 +134,7 @@ export class UploadFile extends Evented {
                 ...this.getDetail(),
                 progress: 0,
                 fileStatus: ERROR_STATUS,
+                httpStatus: event?.response?.status
             };
             this.fire('status');
         }
