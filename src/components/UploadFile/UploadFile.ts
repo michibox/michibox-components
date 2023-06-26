@@ -134,7 +134,8 @@ export class UploadFile extends Evented {
                 ...this.getDetail(),
                 progress: 0,
                 fileStatus: ERROR_STATUS,
-                httpStatus: event?.response?.status
+                httpStatus: event?.response?.status,
+                message: event?.response?.data?.errors || 'Existió un error al cargar el archivo, intente nuevamente.',
             };
             this.fire('status');
         }
