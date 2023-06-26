@@ -164,8 +164,12 @@ const useFileUploadS3Multipart = ({
                         errorCallback({
                             uuid: null,
                             fileName: file.name,
-                            message: 'Existió un error al cargar el archivo, intente nuevamente.',
-                            httpStatus: detail?.httpStatus || 500
+                            message: detail?.errors
+                                ? detail?.errors
+                                : detail?.message
+                                ? detail?.message
+                                : 'Existió un error al cargar el archivo, intente nuevamente.',
+                            httpStatus: detail?.httpStatus || 500,
                         });
                     }
 
