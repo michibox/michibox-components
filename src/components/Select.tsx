@@ -37,7 +37,7 @@ export interface SelectProps {
     onChange?: any;
     onBlur?: any;
     options: any;
-    defaultValue: any;
+    defaultValue?: any;
     error?: any;
     touched?: any;
     backgroundColor?: any;
@@ -163,10 +163,10 @@ const Select = React.forwardRef<HTMLInputElement, SelectProps>(
                     noOptionsMessage={noOptionsMessage}
                     isSearchable={isSearchable}
                     value={props.options.find(
-                        (obj: any) => obj.value == props.defaultValue
+                        (obj: any) => obj.value == props?.defaultValue
                     )}
                     defaultValue={props.options.find(
-                        (obj: any) => obj.value == props.defaultValue
+                        (obj: any) => obj.value == props?.defaultValue
                     )}
                     isRtl={false}
                     onChange={handleChange}
