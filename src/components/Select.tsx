@@ -56,28 +56,30 @@ const customStyles = {
         ...base,
         flex: 1,
     }),
+     // @ts-ignore
     option: (styles: any, state: any) => ({
         ...styles,
-        color: state.isSelected ? 'white' : 'black',
-        backgroundColor: state.isSelected
+        /* color: state.isSelected ? 'white' : 'black', */
+        /* backgroundColor: state.isSelected
             ? '#BC955C'
             : state.isFocused
             ? 'rgba(188, 149, 92, 0.25)'
-            : 'white', 
+            : 'white',  */
         cursor: 'pointer',
     }),
+     // @ts-ignore
     control: (styles: any, state: any) => ({
         ...styles,
         cursor: 'pointer',
-        border: '1px solid #ced4da',
+       /*  border: '1px solid #ced4da', */
         borderRadius: '4px',
-        boxShadow: state.isFocused
+        /* boxShadow: state.isFocused
             ? '0 0 0 0.2rem rgba(188, 149, 92, 0.25)'
-            : 0,
-        borderColor: state.isFocused ? '#BC955C' : '#BC955C',
-        '&:hover': {
+            : 0, */
+       /*  borderColor: state.isFocused ? '#BC955C' : '#BC955C', */
+       /*  '&:hover': {
             borderColor: '#BC955C',
-        },
+        }, */
         '&:focus': {},
     }),
     menuPortal: (base: any) => ({ ...base, zIndex: 9999 }),
