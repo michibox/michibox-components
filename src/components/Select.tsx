@@ -28,11 +28,11 @@ const SingleValue: React.FC<SingleValueProps> = ({ selectProps, data }) => {
 };
 
 export interface SelectProps {
-    isSearchable: boolean;
-    isClearable: boolean;
-    isDisabled: boolean;
-    isLoading: boolean;
-    isLogin: boolean;
+    isSearchable?: boolean;
+    isClearable?: boolean;
+    isDisabled?: boolean;
+    isLoading?: boolean;
+    isLogin?: boolean;
     name?: string;
     onChange?: any;
     onBlur?: any;

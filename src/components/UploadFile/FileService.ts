@@ -95,6 +95,7 @@ const httpTransfer = axios.create({
     timeout: 0,
     xsrfCookieName: 'XSRF-TOKEN',
     xsrfHeaderName: 'X-XSRF-TOKEN',
+    'Content-Type':  'application/json'
     // 'Content-Type':  'application/json',
    // 'X-Requested-With': 'XMLHttpRequest',
 });
